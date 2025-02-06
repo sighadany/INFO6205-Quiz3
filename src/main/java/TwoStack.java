@@ -44,10 +44,38 @@ public class TwoStack {
        
         //Loop over the tokens until you reach the end of the expression
         //TODO
+        String operators = "+-*/";
+        for(String token : tokens) {
+            if (token.equals("(")) {
+                continue;
+            } else if (operators.contains(token)) {
+                ops.push(token);
+            } else if(token.equals(")")) {
+                String op = ops.pop();
+                Double val1 = vals.pop();
+                Double val2 = vals.pop();
+                Double result = 1.0;
 
-        
+                switch (op) {
+                    case "+":
+                        result = val2 + val1;
+                        break;
+                    case "-":
+                        result = val2 - val1;
+                        break;
+                    case "*":
+                        result = val2 * val1;
+                        break;
+                    default:
+                        result = val2 / val1;
+                        break;
+                }
 
-
+                vals.push(result);
+            } else {
+                vals.push(Double.valueOf(token));
+            }
+        }
         return vals.pop();
     }
 }
